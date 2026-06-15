@@ -42,3 +42,9 @@ jobs:
         run: mvn clean compile
       - name: Deploy
         run: echo "Deployed"
+  exit:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Bye
+        run: echo "Bye...."

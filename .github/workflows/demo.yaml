@@ -4,7 +4,16 @@ on:
     types:
       - opened
       - closed
+    branches:
+      - main
+      - 'dev'
+      - 'dev-*' # dev-new dev-something
+      - 'feat/**' # feat/something feat/something/new
+      # '!test' -> run other than this branch
+    paths-ignore:
+      - '.github/workflows/*'  
   workflow_dispatch:
+
 jobs:
   print:
     runs-on: ubuntu-latest

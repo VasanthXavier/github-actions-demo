@@ -44,7 +44,7 @@ jobs:
       - name: Compile
         run: mvn clean package
       - name: Upload artifacts
-        uses: action/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: jar-file
           path: |

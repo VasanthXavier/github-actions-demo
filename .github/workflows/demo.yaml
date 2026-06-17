@@ -43,6 +43,13 @@ jobs:
             ${{ runner.os }}-m2
       - name: Compile
         run: mvn clean package
+      - name: Upload artifacts
+        uses: action/upload-artifact@v3
+        with:
+          name: jar-file
+          path: |
+            target
+            pom.xml   
   deploy:
     needs: build
     runs-on: ubuntu-latest

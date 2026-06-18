@@ -2,7 +2,9 @@ name: Demo Project
 on:
   push:
     branches:
-      - main    
+      - main
+    paths-ignore:
+      - '.github/workflows/*'      
 jobs:
   test:
     runs-on: ubuntu-latest

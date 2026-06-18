@@ -1,11 +1,18 @@
 name: Deploy Project
 on: 
   push:
+    branches:
+      - main
     paths-ignore:
       - '.github/workflows/*' 
   workflow_dispatch:
+env:
+  DB_NAME: demo  
 jobs:
   test:
+    env:
+      DB_USERNAME: vax
+      DB_PASSWORD: abc123 
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -24,31 +31,14 @@ jobs:
             ${{ runner.os }}-m2
       - name: Run Tests
         run: mvn clean test
+      - name: Output information
+        run: |
+          echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Setup JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "21"
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
-      - name: Compile
-        run: mvn clean compile
-      - name: Deploy
-        run: echo "Deployed"
-  exit:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Bye
-        run: echo "Bye...."
+      - name: Output information
+        run:  |
+          echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
+          echo "DB_NAME: ${{ env.DB_NAME }}"

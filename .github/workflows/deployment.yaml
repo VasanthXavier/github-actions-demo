@@ -7,11 +7,11 @@ on:
       - '.github/workflows/*' 
   workflow_dispatch:
 env:
-  DB_NAME: demo  
+  DB_NAME: demo
 jobs:
   test:
     env:
-      DB_USERNAME: ${{ secrets.DB_USERNAME }} # vax
+      DB_USERNAME: ${{ vars.DB_USERNAME }} # vax
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # abc123 
     runs-on: ubuntu-latest
     steps:

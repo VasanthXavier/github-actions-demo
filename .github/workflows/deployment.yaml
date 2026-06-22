@@ -9,6 +9,7 @@ on:
 env:
   DB_NAME: demo
 jobs:
+  environment: testing
   test:
     env:
       DB_USERNAME: ${{ vars.DB_USERNAME }} # vax

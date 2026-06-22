@@ -11,8 +11,8 @@ env:
 jobs:
   test:
     env:
-      DB_USERNAME: vax
-      DB_PASSWORD: abc123 
+      DB_USERNAME: ${{ secrets.DB_USERNAME }} # vax
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # abc123 
     runs-on: ubuntu-latest
     steps:
       - name: Get Code

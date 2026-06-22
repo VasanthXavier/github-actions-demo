@@ -10,11 +10,11 @@ env:
   DB_NAME: demo
 jobs:
   test:
-    environment: testing
     env:
       DB_USERNAME: ${{ vars.DB_USERNAME }} # vax
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # abc123 
     runs-on: ubuntu-latest
+    # environment: testing
     steps:
       - name: Get Code
         uses: actions/checkout@v3

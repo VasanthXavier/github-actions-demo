@@ -65,6 +65,7 @@ jobs:
           #   target
           #   pom.xml   
   deploy:
+    if: always() 
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -78,8 +79,13 @@ jobs:
         run: echo "${{ needs.build.outputs.jar-file }}"  
       - name: Deploy
         run: echo "Deploying..."
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print hellp
+        run: echo "Hello...."
   report:
-    needs: [test, build, deploy]
+    needs: [test, build]
     if: failure()
     runs-on: ubuntu-latest
     steps:

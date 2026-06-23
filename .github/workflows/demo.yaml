@@ -27,11 +27,13 @@ jobs:
       - name: Run Tests
         id: run-tests
         run: mvn clean test
-      - name: Output information
+      - name: Successive test
+        if: success() && steps.run-tests.outcome == 'success'
+        run: echo "Testing completed..."
+      - name: Failure Test
         if: failure() && steps.run-tests.outcome == 'failure'
-        run: echo "Testing completed..."  
+        run: echo "Testing failed..."    
   build:
-    if: always()
     needs: test
     runs-on: ubuntu-latest
     outputs:
@@ -64,8 +66,7 @@ jobs:
           # path: |
           #   target
           #   pom.xml   
-  deploy:
-    if: always() 
+  deploy: 
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -85,7 +86,7 @@ jobs:
       - name: Print hellp
         run: echo "Hello...."
   report:
-    needs: [test, build]
+    needs: [build, deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:

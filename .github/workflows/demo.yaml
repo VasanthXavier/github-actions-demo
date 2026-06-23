@@ -72,3 +72,8 @@ jobs:
         run: echo "${{ needs.build.outputs.jar-file }}"  
       - name: Deploy
         run: echo "Deploying..."
+  exit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Information
+        run: echo "Exiting...."

@@ -28,9 +28,10 @@ jobs:
         id: run-tests
         run: mvn clean test
       - name: Output information
-        if: steps.run-tests.outcome == 'failure'
+        if: failure() && steps.run-tests.outcome == 'failure'
         run: echo "Testing completed..."  
   build:
+    if: always()
     needs: test
     runs-on: ubuntu-latest
     outputs:
@@ -77,8 +78,11 @@ jobs:
         run: echo "${{ needs.build.outputs.jar-file }}"  
       - name: Deploy
         run: echo "Deploying..."
-  exit:
+  report:
+    if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Information
-        run: echo "Exiting...."
+      - name: Output information
+        run: |
+          echo "Something went wrong"
+          echo "${{ github }}"

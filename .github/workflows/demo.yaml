@@ -4,7 +4,8 @@ on:
     branches:
       - main
     paths-ignore:
-      - '.github/workflows/*'      
+      - '.github/workflows/*'
+  workflow_dispatch:          
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -24,7 +25,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2
       - name: Run Tests
+        id: run-tests
         run: mvn clean test
+      - name: Output information
+        if: steps.run-tests.outcome == 'failure'
+        run: echo "Testing completed..."  
   build:
     needs: test
     runs-on: ubuntu-latest

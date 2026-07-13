@@ -76,6 +76,7 @@ jobs:
           path: target
   deploy: 
     needs: build
+    runs-on: ubuntu-latest
     uses: ./.github/workflows/reusable.yaml
     with:
       artifact-name: target-files

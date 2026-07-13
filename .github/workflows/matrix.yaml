@@ -2,10 +2,17 @@ name: Matrix Demo
 on: workflow_dispatch
 jobs:
   build:
+    # continue-on-error: true -> if any one failed others won't stop
     strategy:
       matrix: 
-        java-version: [17, 21, 25]
+        java-version: [17, 21]
         operating-system: [ubuntu-latest, windows-latest]
+        include:
+          - java-version: 25
+            operating-system: ubuntu-latest
+        exclude:
+          - java-version: 21
+            operating-system: windows-latest
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code

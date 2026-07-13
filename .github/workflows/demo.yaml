@@ -26,10 +26,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2
       - name: Cache found
-        if: steps.cache.outputs.cache-hit == true
+        if: steps.cache.outputs.cache-hit == 'true'
         run: echo "Cache found"
       - name: Cache not found
-        if: steps.cache.outputs.cache-hit == false
+        if: steps.cache.outputs.cache-hit == 'false'
         run: echo "Cache not found"        
       - name: Run Tests
         id: run-tests

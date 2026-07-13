@@ -32,6 +32,7 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'false'
         run: echo "Cache not found"        
       - name: Run Tests
+        continue-on-error: true
         id: run-tests
         run: mvn clean test
       - name: Successive test

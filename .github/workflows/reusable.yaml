@@ -7,9 +7,18 @@ on:
         required: true
         # default: target-files
         type: string
+    # secrets:
+    #   some-secret:
+    #     required: false 
+    outputs:
+      result:
+        description: The result of the deployment operation
+        value:  ${{ jobs.deploy.outputs.outcome }}  
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
     steps:
       - name: Get build artifacts
         uses: actions/download-artifact@v8
@@ -21,3 +30,6 @@ jobs:
         run: echo "${{ needs.build.outputs.jar-file }}"  
       - name: Deploy
         run: echo "Deploying..."
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT  

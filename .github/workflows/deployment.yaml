@@ -79,3 +79,10 @@ jobs:
     uses: ./.github/workflows/reusable.yaml
     with:
       artifact-name: target-files
+    # secrets:
+      # some-secret: ${{ secrets.some-secret }}
+  print-deploy-result:
+    needs: deploy
+    steps:
+      - name: Print deploy output
+        run: echo "${{ needs.deploy.outputs.result }}"    

@@ -8,8 +8,7 @@ on:
         # default: target-files
         type: string
 jobs:
-  deploy: 
-    needs: build
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts

@@ -37,9 +37,10 @@ jobs:
           echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
   deploy:
     needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output information
-        run:  |
-          echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
-          echo "DB_NAME: ${{ env.DB_NAME }}"
+    uses: ./.github/workflows/reusable.yaml
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Output information
+    #     run:  |
+    #       echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
+    #       echo "DB_NAME: ${{ env.DB_NAME }}"

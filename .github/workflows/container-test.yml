@@ -1,0 +1,36 @@
+name: Test Project
+on: 
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/workflows/*' 
+  workflow_dispatch:
+env:
+  DB_NAME: demo
+jobs:
+  test:
+    env:
+      DB_USERNAME: ${{ vars.DB_USERNAME }} # vax
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # abc123 
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9.11-eclipse-temurin-21
+    environment: testing
+    steps:
+      - name: Check Java Version
+        run: java -version 
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+      - name: Run Tests
+        run: mvn clean test  
+      - name: Output information
+        run: |
+          echo "DB_USERNAME: ${{ env.DB_USERNAME }}"
